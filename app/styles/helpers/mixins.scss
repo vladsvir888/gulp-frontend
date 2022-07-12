@@ -1,0 +1,199 @@
+@mixin font-face($font-family, $weight, $url, $file-name) {
+  @font-face {
+    font-family: '#{$font-family}';
+    src:
+      url('#{$url}#{$file-name}.woff2') format('woff2'),
+      url('#{$url}#{$file-name}.woff') format('woff');
+    font-weight: #{$weight};
+    font-display: swap;
+    font-style: normal;
+  }
+}
+
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@mixin media-query($break-point) {
+  @if $break-point == maxlg {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+
+  @else if $break-point == maxmd {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
+
+  @else if $break-point == maxsm {
+    @media (max-width: 500px) {
+      @content;
+    }
+  }
+
+  @else if $break-point == minlg {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  }
+
+  @else if $break-point == minmd {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @else if $break-point == minsm {
+    @media (min-width: 501px) {
+      @content;
+    }
+  }
+}
+
+@mixin pos-center($pos) {
+  position: absolute;
+
+  @if $pos == x {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @else if $pos == y {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @else if $pos == xy {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin flex($flex) {
+  display: flex;
+
+  @if $flex == center-x {
+    justify-content: center;
+  }
+
+  @else if $flex == center-y {
+    align-items: center;
+  }
+
+  @else if $flex == center-xy {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @else if $flex == between {
+    justify-content: space-between;
+  }
+
+  @else if $flex == between-center {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @else if $flex == column {
+    flex-direction: column;
+  }
+
+  @else if $flex == column-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @else if $flex == wrap {
+    flex-wrap: wrap;
+  }
+}
+
+@mixin circle($width, $height, $bg-color) {
+  width: $width;
+  height: $height;
+  border-radius: 50%;
+  background-color: $bg-color;
+}
+
+@mixin hide-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(0 0 0 0);
+}
+
+@mixin container {
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  max-width: var(--container-width);
+}
+
+@mixin img($fit) {
+  width: 100%;
+  height: 100%;
+  object-fit: $fit;
+}
+
+@mixin bg($bg-size) {
+  background-size: $bg-size;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+@mixin input-placeholder() {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+}
+
+@mixin input-placeholder-focus {
+  @include optional-at-root(':focus::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':focus:-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':focus::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':focus:-ms-input-placeholder') {
+    @content;
+  }
+}
+
+@mixin font-size($fz, $lh: false) {
+  font-size: $fz;
+
+  @if $lh != false {
+    line-height: $lh;
+  }
+}

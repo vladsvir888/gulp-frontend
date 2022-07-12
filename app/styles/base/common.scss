@@ -1,0 +1,90 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a[class] {
+  text-decoration: none;
+}
+
+a:focus {
+  outline: 2px dotted #000;
+}
+
+button:focus {
+  outline: 2px dotted #000;
+}
+
+// disable wow.js + animate.css on smaller devices
+@media screen and (max-width: 1200px) {
+  .wow {
+    visibility: visible !important;
+
+    animation-name: none !important;
+  }
+}
+
+// disable scroll
+.no-scroll {
+  overflow: hidden;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  @include flex(column);
+  height: 100%;
+}
+
+.header {
+  flex-shrink: 0;
+}
+
+.main {
+  position: relative;
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}

@@ -1,0 +1,9 @@
+{% if icon.name %}
+  <svg
+    {% if icon.width %}width="{{ icon.width }}"{% endif %}
+    {% if icon.height %}height="{{ icon.height }}"{% endif %}
+    {% if icon.class %}class="{{ icon.class }}"{% endif %}
+  >
+    <use xlink:href="./assets/sprites/{{ icon.name }}"></use>
+  </svg>
+{% endif %}

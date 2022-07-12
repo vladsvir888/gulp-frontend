@@ -1,0 +1,13 @@
+{% if image.name %}
+  {% set filename = image.name|split(".")|first %}
+  {% set path = "./assets/images/" %}
+  <picture>
+    <source type="image/webp" srcset="./assets/images/pixel.webp" data-srcset="{{ path ~ filename ~ '.webp' }}">
+    <img
+      {% if image.class %}class="{{ image.class }}"{% endif %}
+      src="./assets/images/pixel.png"
+      data-src="{{ path ~ image.name }}"
+      {% if image.alt %}alt="{{ image.alt }}"{% endif %}
+    >
+  </picture>
+{% endif %}
