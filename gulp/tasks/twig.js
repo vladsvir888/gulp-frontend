@@ -5,7 +5,7 @@ import {
 } from '../config';
 
 export const twigBuild = () => (
-  src(`${config.app.templates}/pages/*.twig`)
+  src(config.app.templates)
     .pipe(twig({
       base: 'app',
     }))
@@ -17,4 +17,4 @@ export const twigBuild = () => (
     .pipe(dest(config.build.templates))
 );
 
-export const twigWatch = () => watch(`${config.app.root}/{pages,blocks}/**/*.twig`, twigBuild);
+export const twigWatch = () => watch(config.watch.templates, twigBuild);

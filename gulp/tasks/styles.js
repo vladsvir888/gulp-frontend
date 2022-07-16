@@ -1,8 +1,9 @@
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
-import autoprefixer from 'gulp-autoprefixer';
-import gcmq from 'gulp-group-css-media-queries';
-import cleanCSS from 'gulp-clean-css';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import sortMediaQueries from 'postcss-sort-media-queries';
 import rename from 'gulp-rename';
 import gulpif from 'gulp-if';
 import sassGlob from 'gulp-sass-glob';
@@ -12,29 +13,23 @@ import {
 
 const sass = gulpSass(dartSass);
 
+const plugins = [
+  autoprefixer(),
+  cssnano(),
+];
+
 export const stylesBuild = () => (
-  src(`${config.app.styles}/main.scss`, { sourcemaps: config.isDev })
+  src(config.app.styles, { sourcemaps: config.isDev })
     .pipe(sassGlob())
     .pipe(sass({
       includePaths: ['./node_modules'],
     }))
-    .pipe(gcmq())
-    .pipe(gulpif(config.isProd, autoprefixer()))
-    .pipe(gulpif(config.isProd, cleanCSS({
-      level: {
-        1: {
-          all: true,
-          normalizeUrls: false,
-        },
-        2: {
-          restructureRules: true,
-        },
-      },
-    })))
+    .pipe(postcss([sortMediaQueries()]))
+    .pipe(gulpif(config.isProd, postcss(plugins)))
     .pipe(gulpif(config.isProd, rename({
       suffix: '.min',
     })))
     .pipe(dest(config.build.styles, { sourcemaps: config.isDev }))
 );
 
-export const stylesWatch = () => watch(`${config.app.root}/{styles,blocks}/**/*.scss`, stylesBuild);
+export const stylesWatch = () => watch(config.watch.styles, stylesBuild);

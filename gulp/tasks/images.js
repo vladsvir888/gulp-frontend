@@ -4,12 +4,13 @@ import imageminPngquant from 'imagemin-pngquant';
 import imageminWebp from 'imagemin-webp';
 import gulpif from 'gulp-if';
 import rename from 'gulp-rename';
+import gulpAvif from 'gulp-avif';
 import {
   config, src, dest, watch, series,
 } from '../config';
 
 const copyImages = () => (
-  src(`${config.app.images}/**/*`)
+  src(`${config.app.images}`)
     .pipe(changed(config.build.assets))
     .pipe(gulpif(config.isProd, imagemin([
       imagemin.mozjpeg({ quality: 80 }),
@@ -20,8 +21,8 @@ const copyImages = () => (
 );
 
 const convertImagesToWebp = () => (
-  src(`${config.app.images}/**/*.{jpg,jpeg,png}`)
-    .pipe(changed(config.build.images, { extension: '.webp' }))
+  src(config.app.imagesAfterCopy)
+    .pipe(changed(config.build.assets, { extension: '.webp' }))
     .pipe(gulpif(config.isProd, imagemin([
       imageminWebp({ quality: 80 }),
     ])))
@@ -31,6 +32,13 @@ const convertImagesToWebp = () => (
     .pipe(dest(`${config.build.assets}/images`))
 );
 
-export const imagesBuild = series(copyImages, convertImagesToWebp);
+const convertImagesToAvif = () => (
+  src(config.app.imagesAfterCopy)
+    .pipe(changed(config.build.assets, { extension: '.avif' }))
+    .pipe(gulpAvif())
+    .pipe(dest(`${config.build.assets}/images`))
+);
 
-export const imagesWatch = () => watch(`${config.app.images}/**/*`, imagesBuild);
+export const imagesBuild = series(copyImages, convertImagesToWebp, convertImagesToAvif);
+
+export const imagesWatch = () => watch(config.watch.images, imagesBuild);

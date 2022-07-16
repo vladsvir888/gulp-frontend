@@ -10,13 +10,14 @@ const buildFolder = 'build';
 export const config = {
   app: {
     root: appFolder,
-    templates: appFolder,
-    styles: `${appFolder}/styles`,
-    scripts: `${appFolder}/scripts`,
-    resources: `${appFolder}/resources`,
-    images: `${appFolder}/images`,
-    iconsMono: `${appFolder}/icons/mono`,
-    iconsMulti: `${appFolder}/icons/multi`,
+    templates: `${appFolder}/pages/*.twig`,
+    styles: `${appFolder}/styles/main.scss`,
+    scripts: `${appFolder}/scripts/index.js`,
+    resources: `${appFolder}/resources/**/*`,
+    images: `${appFolder}/images/**/*`,
+    imagesAfterCopy: `${appFolder}/images/**/*.{jpg,jpeg,png}`,
+    iconsMono: `${appFolder}/icons/mono/**/*`,
+    iconsMulti: `${appFolder}/icons/multi/**/*`,
   },
 
   build: {
@@ -24,8 +25,17 @@ export const config = {
     templates: buildFolder,
     styles: `${buildFolder}/styles`,
     scripts: `${buildFolder}/scripts`,
-    images: `${appFolder}/images`,
     assets: `${buildFolder}/assets`,
+  },
+
+  watch: {
+    styles: `${appFolder}/{styles,blocks}/**/*.scss`,
+    templates: `${appFolder}/{pages,blocks}/**/*.twig`,
+    scripts: `${appFolder}/{scripts,blocks}/**/*.js`,
+    resources: `${appFolder}/resources/**/*`,
+    images: `${appFolder}/images/**/*`,
+    iconsMono: `${appFolder}/icons/mono/**/*`,
+    iconsMulti: `${appFolder}/icons/multi/**/*`,
   },
 
   setEnv() {

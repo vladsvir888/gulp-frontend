@@ -1,10 +1,12 @@
-{% if image.name %}
+{% if image %}
   {% set filename = image.name|split(".")|first %}
   {% set path = "./assets/images/" %}
   <picture>
+    <source type="image/avif" srcset="./assets/images/pixel.avif" data-srcset="{{ path ~ filename ~ '.avif' }}"/>
     <source type="image/webp" srcset="./assets/images/pixel.webp" data-srcset="{{ path ~ filename ~ '.webp' }}">
+    <source type="image/jp2" srcset="./assets/images/pixel.jp2" data-srcset="{{ path ~ filename ~ '.jp2' }}">
     <img
-      {% if image.class %}class="{{ image.class }}"{% endif %}
+      class="lazy {% if image.class %}{{ image.class }}{% endif %}"
       src="./assets/images/pixel.png"
       data-src="{{ path ~ image.name }}"
       {% if image.alt %}alt="{{ image.alt }}"{% endif %}

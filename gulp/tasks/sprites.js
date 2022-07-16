@@ -4,10 +4,10 @@ import {
 } from '../config';
 
 const spriteMono = () => (
-  src(`${config.app.iconsMono}/**/*`)
+  src(config.app.iconsMono)
     .pipe(svgSprite({
       mode: {
-        symbol: {
+        stack: {
           sprite: '../sprites/sprite-mono.svg',
         },
       },
@@ -31,10 +31,10 @@ const spriteMono = () => (
 );
 
 const spriteMulti = () => (
-  src(`${config.app.iconsMulti}/**/*`)
+  src(config.app.iconsMulti)
     .pipe(svgSprite({
       mode: {
-        symbol: {
+        stack: {
           sprite: '../sprites/sprite-multi.svg',
         },
       },
@@ -66,6 +66,6 @@ const spriteMulti = () => (
 export const spritesBuild = parallel(spriteMono, spriteMulti);
 
 export const spritesWatch = () => {
-  watch(`${config.app.iconsMono}/**/*`, spriteMono);
-  watch(`${config.app.iconsMulti}/**/*`, spriteMulti);
+  watch(config.watch.iconsMono, spriteMono);
+  watch(config.watch.iconsMulti, spriteMulti);
 };

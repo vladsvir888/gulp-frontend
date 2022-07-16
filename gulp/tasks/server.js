@@ -11,7 +11,7 @@ const server = (cb) => {
       `${config.build.styles}/*.css`,
       `${config.build.scripts}/*.js`,
       {
-        match: `${config.build.images}/**/*`,
+        match: `${config.build.assets}/**/*`,
         fn() {
           this.reload();
         },

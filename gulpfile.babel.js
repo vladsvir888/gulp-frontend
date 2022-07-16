@@ -12,6 +12,8 @@ import {
 
 config.setEnv();
 
+export const cleaning = clean;
+
 export const build = series(
   clean,
   parallel(

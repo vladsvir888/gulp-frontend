@@ -19,37 +19,37 @@
 }
 
 @mixin media-query($break-point) {
-  @if $break-point == maxlg {
+  @if $break-point == max1024 {
     @media (max-width: 1024px) {
       @content;
     }
   }
 
-  @else if $break-point == maxmd {
+  @else if $break-point == max767 {
     @media (max-width: 767px) {
       @content;
     }
   }
 
-  @else if $break-point == maxsm {
+  @else if $break-point == max500 {
     @media (max-width: 500px) {
       @content;
     }
   }
 
-  @else if $break-point == minlg {
+  @else if $break-point == min1025 {
     @media (min-width: 1025px) {
       @content;
     }
   }
 
-  @else if $break-point == minmd {
+  @else if $break-point == min768 {
     @media (min-width: 768px) {
       @content;
     }
   }
 
-  @else if $break-point == minsm {
+  @else if $break-point == min501 {
     @media (min-width: 501px) {
       @content;
     }

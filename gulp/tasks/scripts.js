@@ -16,7 +16,7 @@ webpackConfig.mode = production ? 'production' : 'development';
 webpackConfig.devtool = production ? false : 'inline-source-map';
 
 export const scriptsBuild = () => (
-  src(`${config.app.scripts}/index.js`)
+  src(`${config.app.scripts}`)
     .pipe(webpackStream(webpackConfig), webpack)
     .pipe(gulpif(production, rename({
       suffix: '.min',
@@ -24,4 +24,4 @@ export const scriptsBuild = () => (
     .pipe(dest(config.build.scripts))
 );
 
-export const scriptsWatch = () => watch(`${config.app.root}/{scripts,blocks}/**/*.js`, scriptsBuild);
+export const scriptsWatch = () => watch(config.watch.scripts, scriptsBuild);
