@@ -44,11 +44,7 @@ a[class] {
   text-decoration: none;
 }
 
-a:focus {
-  outline: 2px dotted #000;
-}
-
-button:focus {
+:focus-visible {
   outline: 2px dotted #000;
 }
 
