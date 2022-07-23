@@ -1,7 +1,5 @@
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
-import rename from 'gulp-rename';
-import gulpif from 'gulp-if';
 import yargs from 'yargs';
 import {
   config, src, dest, watch,
@@ -18,9 +16,6 @@ webpackConfig.devtool = production ? false : 'inline-source-map';
 export const scriptsBuild = () => (
   src(`${config.app.scripts}`)
     .pipe(webpackStream(webpackConfig), webpack)
-    .pipe(gulpif(production, rename({
-      suffix: '.min',
-    })))
     .pipe(dest(config.build.scripts))
 );
 

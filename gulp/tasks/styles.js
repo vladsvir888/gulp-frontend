@@ -4,7 +4,6 @@ import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import sortMediaQueries from 'postcss-sort-media-queries';
-import rename from 'gulp-rename';
 import gulpif from 'gulp-if';
 import sassGlob from 'gulp-sass-glob';
 import {
@@ -26,9 +25,6 @@ export const stylesBuild = () => (
     }))
     .pipe(postcss([sortMediaQueries()]))
     .pipe(gulpif(config.isProd, postcss(plugins)))
-    .pipe(gulpif(config.isProd, rename({
-      suffix: '.min',
-    })))
     .pipe(dest(config.build.styles, { sourcemaps: config.isDev }))
 );
 
